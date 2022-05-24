@@ -23,33 +23,33 @@ const Row = ({ title, fetchUrl, rowId }) => {
         }
     }
 
-    // const selectMovie = async (passedId) => {
-    //     const selectedMovieEl = document.getElementById('selected-movie')
-    //     const movieElId = document.getElementById(passedId)
-    //     const movieInfo = movies.find(item => item.id === passedId)
-    //     if (selectedMovie.movieInfo === movieInfo) {
-    //         selectedMovieEl.style.maxHeight = 0            
-    //         setTimeout(() => {
-    //             setSelectedMovie({})
-    //         }, 300)
-    //     } else {
-    //         setSelectedMovie({...selectedMovie, movieInfo})
-    //         setTimeout(() => {
-    //             selectedMovieEl.style.maxHeight = selectedMovieEl.scrollHeight + 'px'
-    //             console.log(selectedMovieEl)
-    //         }, 10)
-    //     }
-    // }
-
-    const selectMovie = (passedId) => {
-        const selectedMovieEl = document.getElementById('selected-movie')
+    const selectMovie = async (passedId) => {
+        const selectedMovieEl = document.getElementById('selected-movie' + rowId)
+        const movieElId = document.getElementById(passedId)
         const movieInfo = movies.find(item => item.id === passedId)
         if (selectedMovie.movieInfo === movieInfo) {
-            setSelectedMovie({}) 
+            selectedMovieEl.style.maxHeight = 0            
+            setTimeout(() => {
+                setSelectedMovie({})
+            }, 300)
         } else {
             setSelectedMovie({...selectedMovie, movieInfo})
+            setTimeout(() => {
+                selectedMovieEl.style.maxHeight = 550 + 'px'
+                console.log(selectedMovieEl)
+            }, 10)
         }
     }
+
+    // const selectMovie = (passedId) => {
+    //     const selectedMovieEl = document.getElementById('selected-movie')
+    //     const movieInfo = movies.find(item => item.id === passedId)
+    //     if (selectedMovie.movieInfo === movieInfo) {
+    //         setSelectedMovie({}) 
+    //     } else {
+    //         setSelectedMovie({...selectedMovie, movieInfo})
+    //     }
+    // }
 
     return (
         <>
@@ -66,7 +66,7 @@ const Row = ({ title, fetchUrl, rowId }) => {
             {
                 selectedMovie.movieInfo?.id ?
                 // <h1 className='text-white'>{selectedMovie.movieInfo?.id}</h1>
-                <div className='w-full h-[550px] text-white relative' id={'selected-movie'} key={selectedMovie.movieInfo?.id}>
+                <div className='w-full h-[550px] text-white relative' id={'selected-movie' + rowId} style={{maxHeight: 0, transition: 'all 300ms ease', overflow: 'hidden'}}>
                     <div className="w-full h-full" id={selectedMovie.movieInfo?.id}>
                         <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
                         <img className='w-full h-full object-cover' src= {`https://image.tmdb.org/t/p/original/${selectedMovie.movieInfo?.backdrop_path}`} alt={selectedMovie.movieInfo?.title} />
@@ -84,7 +84,7 @@ const Row = ({ title, fetchUrl, rowId }) => {
                     </div>
                 </div>
                 :
-                <div id="selected-movie"></div>
+                <div id={"selected-movie" + rowId}></div>
             }
         </>
     );
