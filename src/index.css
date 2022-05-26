@@ -15,6 +15,10 @@ body {
   transition: max-height 300ms ease;
 } */
 
+.no-cursor {
+  cursor: no-drop;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
